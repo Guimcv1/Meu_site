@@ -1,8 +1,10 @@
 import BlurText from '../components/BlurText';
 import { LogoLoop } from '../components/LogoLoop';
 import AnimatedButton from '../components/AnimatedButton';
+import ThreeViewer from '../components/ThreeViewer';
 import { motion } from 'framer-motion';
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaGithub } from 'react-icons/fa';
+import { Download, Box, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const featuredProjects = [
@@ -13,9 +15,9 @@ const featuredProjects = [
     repo: 'https://github.com/Guimcv1/Projeto-Senai'
   },
   {
-    title: 'Autodesk Fusion 360',
-    description: 'Prototipagem de drones e modelagem de carros esportivos, aplicando conceitos de engenharia e design paramétrico.',
-    tags: ['Fusion 360', 'Design 3D', 'Engenharia'],
+    title: 'Carro F1 in Schools - Lobo Canindé',
+    description: 'Carro de competição projetado para a F1 in Schools nos anos de 2023 e 2024 pela equipe Lobo Canindé.',
+    tags: ['F1 in Schools', 'Lobo Canindé', 'Design 3D', 'Engenharia'],
     repo: null
   }
 ];
@@ -76,23 +78,29 @@ const Home = () => {
           </motion.div>
         </div>
 
-        {/* Imagem de Perfil */}
+        {/* Imagem de Perfil Quadrada */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3, duration: 0.7, type: 'spring' }}
           className="flex-1 flex justify-center md:justify-end"
         >
-          <div className="relative w-72 h-72 md:w-96 md:h-96">
-            <div className="absolute inset-0 bg-salmon/20 rounded-full blur-3xl animate-pulse"></div>
-            <img 
-              src="/minha-foto.jpeg" 
-              alt="Guilherme Martins" 
-              className="relative z-10 w-full h-full object-cover rounded-full border-4 border-gray-200 dark:border-gray-800 shadow-xl shadow-salmon/30 hover:scale-105 hover:border-salmon transition-all duration-500"
-              onError={(e) => {
-                e.target.src = 'https://via.placeholder.com/400x400/f9fafb/fa8072?text=Sua+Foto+Aqui';
-              }}
-            />
+          <div className="relative w-72 h-72 md:w-96 md:h-96 group">
+            {/* Square Glow Effect */}
+            <div className="absolute -inset-2 bg-gradient-to-r from-salmon via-purple-600 to-blue-600 rounded-2xl blur-xl opacity-50 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
+            
+            {/* Square Photo Frame */}
+            <div className="relative z-10 w-full h-full rounded-2xl overflow-hidden border-2 border-gray-200 dark:border-gray-800 shadow-2xl bg-gray-900 transition-transform duration-500 group-hover:scale-[1.02]">
+              <img 
+                src="/minha-foto.jpeg" 
+                alt="Guilherme Martins" 
+                className="w-full h-full object-cover rounded-2xl transition-transform duration-700 group-hover:scale-105"
+                onError={(e) => {
+                  e.target.src = 'https://via.placeholder.com/400x400/f9fafb/fa8072?text=Sua+Foto+Aqui';
+                }}
+              />
+              <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10 pointer-events-none"></div>
+            </div>
           </div>
         </motion.div>
       </section>
@@ -111,6 +119,48 @@ const Home = () => {
           className="text-gray-400 hover:text-salmon transition-colors"
         />
       </motion.div>
+
+      {/* Destaque 3D Modelagem (Nova Seção de Visualizador 3D) */}
+      <motion.section
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        className="bg-gray-900/60 border border-gray-800 rounded-3xl p-8 backdrop-blur-xl relative overflow-hidden"
+      >
+        <div className="flex flex-col lg:flex-row items-center gap-8">
+          <div className="lg:w-1/2 space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-salmon/10 border border-salmon/20 text-salmon rounded-full text-xs font-semibold">
+              <Box className="w-3.5 h-3.5" />
+              <span>Engenharia & Modelagem 3D</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-white">
+              Visualização <span className="text-salmon">3D Interativa</span>
+            </h2>
+            <p className="text-gray-300 leading-relaxed">
+              Explore meus modelos tridimensionais diretamente no seu navegador! Você pode rotacionar, aproximar e alternar para o modo estrutura wireframe em tempo real.
+            </p>
+            <div className="pt-2">
+              <Link 
+                to="/projects" 
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-salmon text-white font-semibold hover:brightness-110 transition-all shadow-lg shadow-salmon/20"
+              >
+                Ver todos os projetos 3D
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+
+          <div className="lg:w-1/2 w-full">
+            <ThreeViewer 
+              stlUrl="/3dModels/CarroCompleto+F3D.stl"
+              title="Carro F1 in Schools - Lobo Canindé (2023/2024)"
+              color="#3b82f6"
+              height="320px"
+            />
+          </div>
+        </div>
+      </motion.section>
 
       {/* Visão Geral dos Projetos (Destaques) */}
       <motion.section 

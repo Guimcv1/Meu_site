@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Home, Code2, Briefcase, Award, Mail, Moon, Sun } from 'lucide-react';
+import { Home, Code2, Briefcase, Award, Mail, Moon, Sun, Download } from 'lucide-react';
 import FloatingLines from '../components/FloatingLines';
 import { useTheme } from '../contexts/ThemeContext';
 
@@ -48,6 +48,7 @@ const MainLayout = ({ children }) => {
                   </Link>
                 ))}
               </div>
+
               <button 
                 onClick={toggleTheme} 
                 className="p-2 ml-4 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 transition-colors"
@@ -64,11 +65,6 @@ const MainLayout = ({ children }) => {
                >
                  {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
                </button>
-               <button className="text-muted-foreground hover:text-foreground focus:outline-none ml-2">
-                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-                 </svg>
-               </button>
             </div>
           </div>
         </div>
@@ -79,9 +75,21 @@ const MainLayout = ({ children }) => {
         {children}
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-border py-6 text-center text-muted-foreground text-sm relative z-10 transition-colors duration-300">
-        <p>© {new Date().getFullYear()} Guilherme Martins. Construído com React & Vite.</p>
+      {/* Footer com botão de Baixar Currículo lá em baixo */}
+      <footer className="border-t border-border py-8 text-center text-muted-foreground text-sm relative z-10 transition-colors duration-300 bg-background/50">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p>© {new Date().getFullYear()} Guilherme Martins. Todos os direitos reservados.</p>
+          <a 
+            href="/Curriculo_Guilherme_Martins_Coelho_Vilmar.pdf" 
+            download="Curriculo_Guilherme_Martins.pdf"
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-salmon hover:text-white dark:hover:bg-salmon dark:hover:text-white text-gray-700 dark:text-gray-300 text-xs font-semibold border border-gray-200 dark:border-gray-700 transition-all duration-300 shadow-sm"
+          >
+            <Download className="w-4 h-4" />
+            <span>Baixar Currículo (PDF)</span>
+          </a>
+        </div>
       </footer>
     </div>
   );
